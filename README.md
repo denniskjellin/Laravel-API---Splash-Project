@@ -1,66 +1,274 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Splash - Webbtjänst
+av Dennis Kjellin, dekj2100@student.miun.se
+Projektuppgift för kursen Fullstacksutveckling med ramverk, Mittunivesitetet Sundsvall, HT 2022.
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Info om webbtjänsten
+Moment - 1 av projektuppgiften är att skapa en REST-webbtjänst med full CRUD-funktionalitet baserad på Laravel som backend-ramverk som använder en databas för lagring av data.
 
-## About Laravel
+Samt funktionalitet för registrering och autentisering av användare.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Installation av databas
+För att ladda ner repot:
+```
+"git clone https://github.com/Webbutvecklings-programmet/projekt_webservice_vt22-denniskjellin.git"
+```
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Du behöver installera följande program på din maskin:
+```
+* Laravel
+* Composer
+* XAMPP
+* PHP
+* NodeJS
+```
+### Efter att du har öppnat projektet i ditt val av kod-editor så gör följande:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Öppna API mappen i din Terminal.
+```
+cd splashapi
+```
+Skapa en databas utöver de inloggningsuppgifter som står i .env filen för projektet, alternativt skapa egen DB med egen username och password
+```
+cp .env.example .env
+```
+Installera databasen mot XAMPP: php artisan migrate
+```
+php artisan migrate
+```
+Starta webbservern: 
+```
+php artisan serve
+```
+Du kan nu komma åt servern på http://localhost:8000
 
-## Learning Laravel
+Installationen är nu slutförd.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+******
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Tabeller som installeras
+(Laravel installerar vissa standard tabellern, jag tar upp Users för denna har jag aktivt arbetat med)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+|Tabell|Kolumn  |
+|--|--|
+|Users  | **id** (bigint(20) primary_key auto_increment, **name** varchar(255), not_null, **email** varchar(255), foreign_key, not_null, **email_verified_at** timestamp, nullable, **password** varchar(255) not_null, **remember_token** varchar(100), null_able, **created_at** timestamp, null_able, **updated_at** timestamp, null_able |
 
-## Laravel Sponsors
+******
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+|Tabell|Kolumn  |
+|--|--|
+|Suppliers  | **id** (bigint(20) primary_key auto_increment, **name** varchar(255), not_null, **email** varchar(256), not_null, **phone** varchar(12), not_null, **created_at** timestamp, null_able, **updated_at** timestamp, null_able |
 
-### Premium Partners
+|Tabell|Kolumn  |
+|--|--|
+|Products  | **id** (bigint(20) primary_key auto_increment, **name** varchar(64), not_null, **supplier_id** bigint(20) foreign_key, not_null, **category_id** bigint(20) foreign_key, not_null, **amount** int(11), not_null, **price** int(11), not_null, **image** varchar(250), nullable, **info** longText, not_null, **created_at** timestamp, null_able, **updated_at** timestamp, null_able |
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+|Tabell|Kolumn  |
+|--|--|
+|Categories  | **id** (bigint(20) primary_key auto_increment, **name** varchar(64), not_null, **created_at** timestamp, null_able, **updated_at** timestamp, null_able |
 
-## Contributing
+******
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+|Tabell|Kolumn  |
+|--|--|
+|Posts  | **id** (bigint(20) primary_key auto_increment, **title** varchar(255), not_null, **content** longText, not_null, **created_at** timestamp, null_able, **updated_at** timestamp, null_able |
 
-## Code of Conduct
+|Tabell|Kolumn  |
+|--|--|
+|Comments  | **id** (bigint(20) primary_key auto_increment, **comment** varchar(255), not_null, **post_id** bigint(20) foreign_key, not_null, **created_at** timestamp, null_able, **updated_at** timestamp, null_able |
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+******
 
-## Security Vulnerabilities
+## Mappar
+Dessa mappar är de mappar som jag aktivt arbetat i som är bra att ha koll på:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+* ```app``` - Innehåller Eloquent models
+* ```app/Http/Controllers/Api``` - Innehåller alla controllers
+* ```app/Http/Middleware``` - Innehåller auth middleware (autentisering)
+* ```database/migrations``` - Innehåller databas migrationer
+* ```routes``` - Innehåller alla api routes, som är skapta i api.php filen
+* ```public/storage/img/products``` - Innehåller mina produktbilder
 
-## License
+## Enviroment variablar
+* ```.env``` - I denna fil kan du justera databasanslutningen.
+******
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Testkörning API
+Starta laravel utvecklingsservern
+```php artisan serve```
+
+Åtkomst till api
+```http://localhost:8000```
+
+
+| Required | Key    | Value    |
+| ------------- | ------------- | -------- |
+| Yes | Content-Type   | application/json   |
+| Yes | X-Requested-With   | XMLHttpRequest    |
+| Yes | Authorization   | Token    |
+
+******
+
+## Autentisering
+Min applikation använder sig utav autentisering via en genererad TOKEN som man får vid registrering samt inloggning av användarkonto. 
+
+Vid testkörning via Thunderclient så klistrar du in den TOKEN som genereras vid registering och inloggning i:
+```Thunderclient: Auth->Bearer->token```
+
+Du får då åtkomst att testköra de olika routes som webbtjänsten har.
+
+******
+
+## Användning av API/Routes
+
+### Users
+| Metod     | Ändpunkt      | Beskrivning   
+| ------------- | ------------- | --------    |
+| `POST`        | /register         | `Registrera användare`   |
+| `POST`         | /login         | `Logga in`   |
+| `POST`         | /logout         | `Logga ut`   |
+
+Skickas som JSON med följande struktur:
+
+Registrera
+```
+{
+   "name" : "John",
+   "email" : "johndoe@gmail.com",
+   "password" : "password" 
+}
+```
+Logga in
+```
+{
+   email: "johndoe@gmail.com",
+   password: "password" 
+}
+```
+******
+
+### Suppliers
+| Metod     | Ändpunkt      | Beskrivning   
+| ------------- | ------------- | --------    |
+| `POST`        | /addsuppliers         | `Addera supplier`   |
+| `GET`         | /getsuppliers         | `Hämta alla`   |
+| `GET`         | /getsuppliers/ID         | `Hämta specifik`   |
+| `DELETE`         | /deletesuppliers/ID         | `Ta bort`   |
+| `PUT`         | /updatesuppliers/ID         | `Uppdatera`   |
+
+Skickas som JSON med följande struktur:
+
+POST/PUT
+```
+{
+   "name" : "Example supplier",
+   "email" : "supplier@gmail.com",
+   "phone" : "12345" 
+}
+```
+```DELETE/PUT görs genom att ange önskat ID på slutet av respektive routes!```
+
+******
+
+### Categories
+| Metod     | Ändpunkt      | Beskrivning   
+| ------------- | ------------- | --------    |
+| `POST`        | /addcategories         | `Addera category`   |
+| `GET`         | /getcategories         | `Hämta alla`   |
+| `GET`         | /getcategories/ID         | `Hämta specifik`   |
+| `DELETE`         | /deletecategories/ID         | `Ta bort`   |
+| `PUT`         | /updatecategories/ID         | `Uppdatera`   |
+
+Skickas som JSON med följande struktur:
+
+POST/PUT
+```
+{
+   "name" : "Example supplier", 
+}
+```
+```DELETE/PUT görs genom att ange önskat ID på slutet av respektive routes!```
+
+******
+
+### Products
+| Metod     | Ändpunkt      | Beskrivning   
+| ------------- | ------------- | --------    |
+| `POST`        | /addproducts         | `Addera product`   |
+| `GET`         | /getproducts         | `Hämta alla`   |
+| `GET`         | /getproducts/ID         | `Hämta specifik`   |
+| `GET`         | /getproducts/search/product/{sökord}         | `Sök product`   |
+| `DELETE`         | /deleteproducts/ID         | `Ta bort`   |
+| `PUT`         | /updateproducts/ID         | `Uppdatera`   |
+
+Skickas som JSON med följande struktur:
+
+POST/PUT
+```
+{
+   "name" : "Example product",
+   "supplier_id" : "1",
+   "category_id" : "1",
+   "amount" : 10,
+   "price" : 10,
+   "image" : - file - (not required)
+   "info" : "description.." 
+}
+```
+```DELETE/PUT görs genom att ange önskat ID på slutet av respektive routes!```
+
+******
+
+### Posts
+| Metod     | Ändpunkt      | Beskrivning   
+| ------------- | ------------- | --------    |
+| `POST`        | /addpost         | `Addera post`   |
+| `GET`         | /getposts         | `Hämta alla`   |
+| `GET`         | /getposts/ID         | `Hämta specifik`   |
+| `DELETE`         | /deletepost/ID         | `Ta bort`   |
+| `PUT`         | /updatepost/ID         | `Uppdatera`   |
+
+Skickas som JSON med följande struktur:
+
+POST/PUT
+```
+{
+  "title" : "Example title",
+  "content" : "Example comment.."
+}
+```
+```DELETE/PUT görs genom att ange önskat ID på slutet av respektive routes!```
+
+******
+
+### Comments
+| Metod     | Ändpunkt      | Beskrivning   
+| ------------- | ------------- | --------    |
+| `POST`        | /addcomment/ID         | `Addera post`   |
+| `GET`         | /getcomments/ID         | `Hämta alla`   |
+| `GET`         | /getposts/ID         | `Hämta specifik`   |
+| `DELETE`         | /deletepost/ID         | `Ta bort`   |
+| `PUT`         | /updatepost/ID         | `Uppdatera`   |
+
+Skickas som JSON med följande struktur:
+
+POST/PUT
+```
+{
+  "comment" : "Example comment.."
+}
+```
+```DELETE/PUT görs genom att ange önskat ID på slutet av respektive routes!```
+
+******
+
+## Inspiration
+Har hämtat inspiration till min README fil från [Gothinkster GITHUB](https://github.com/gothinkster/laravel-realworld-example-app/blob/master/readme.md)
+
+### Frågor eller funderingar?
+Hör gärna av dig till mig!
+
+### Kontaktuppgifter:
+#### e-post: dekj2100@student.miun.se
+#### e-post: denniskjellin@hotmail.com
+
+
